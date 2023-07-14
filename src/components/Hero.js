@@ -64,7 +64,7 @@ const Wrapper = styled.section`
     }
     .main-img {
       width: 100%;
-      height: 550px;
+      height: 500px;
       position: relative;
       border-radius: var(--radius);
       display: block;
