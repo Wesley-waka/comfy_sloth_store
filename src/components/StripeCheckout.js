@@ -27,14 +27,24 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
 
+
+
+
   const createPaymentIntent = async () => {
     try {
-      const { data } = await axios.post(
-        '/.netlify/functions/create-payment-intent',
+      fetch(`${process.env.REACT_APP_API_BASE_URL}/create-payment-intent`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ price: total_amount }),
+    })
+        .then((res) => res.json())
+        .then((data) => setClientSecret(data.clientSecret));
+      // const { data } = await axios.post(
+      //   '/.netlify/functions/create-payment-intent',
 
-        JSON.stringify({ cart, shipping_fee, total_amount })
-      );
-      setClientSecret(data.clientSecret);
+      //   JSON.stringify({ cart, shipping_fee, total_amount })
+      // );
+      // setClientSecret(data.clientSecret);
     } catch (error) {
       // console.log(error.response)
     }
