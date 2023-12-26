@@ -12,12 +12,12 @@ import { useCartContext } from '../context/cart_context';
 import { useUserContext } from '../context/user_context';
 import { formatPrice } from '../utils/helpers';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 const promise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const CheckoutForm = () => {
   const { cart, total_amount, shipping_fee, clearCart } = useCartContext();
-  const { myUser } = useUserContext();
   const navigate = useNavigate();
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
@@ -26,10 +26,9 @@ const CheckoutForm = () => {
   const [clientSecret, setClientSecret] = useState('');
   const stripe = useStripe();
   const elements = useElements();
-
-
-
-
+  const [cookies] = useCookies(['currentUser']);
+  const myUser = cookies.currentUser
+  
   const createPaymentIntent = async () => {
     try {
       fetch(`${process.env.REACT_APP_API_BASE_URL}/create-payment-intent`, {

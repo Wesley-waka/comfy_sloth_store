@@ -6,11 +6,14 @@ import { Link } from 'react-router-dom'
 import { links } from '../utils/constants'
 import CartButtons from './CartButtons'
 import { useProductsContext } from '../context/products_context'
-import { useUserContext } from '../context/user_context'
+import { useCookies } from 'react-cookie';
 
 const Nav = () => {
+
   const { openSidebar } = useProductsContext();
-  const { myUser } = useUserContext()
+  const [cookies] = useCookies(['currentUser']);
+  const myUser = cookies.currentUser
+
   return <NavContainer>
     <div className='nav-center'>
       <div className='nav-header'>

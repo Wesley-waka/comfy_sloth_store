@@ -1,14 +1,23 @@
 import React from 'react'
 import { FaShoppingCart, FaUserMinus, FaUserPlus } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { useProductsContext } from '../context/products_context'
 import { useCartContext } from '../context/cart_context'
-import { useUserContext } from '../context/user_context'
+import { useUsersContext } from '../context/user_context'
+import { useCookies } from 'react-cookie';
+
 const CartButton = () => {
-  const { closeSidebar } = useProductsContext()
-  const { total_items, clearCart } = useCartContext()
-  const { loginWithRedirect, myUser, logout } = useUserContext()
+  const { closeSidebar } = useProductsContext();
+  const { total_items, clearCart } = useCartContext();
+  const { logout } = useUsersContext();
+  const [cookies, removeCookie] = useCookies(['currentUser']);
+  const myUser = cookies.currentUser
+  const navigate = useNavigate();
+  const redirect = ()=>{
+    navigate('login')
+  }
+  console.log(myUser)
   return (
     <Wrapper className='cart-btn-wrapper'>
       <Link to='/cart' className='cart-btn' onClick={closeSidebar}>
@@ -24,14 +33,14 @@ const CartButton = () => {
           className='auth-btn'
           onClick={() => {
             clearCart()
-            localStorage.removeItem('user')
-            logout({ returnTo: window.location.origin })
+            removeCookie('currentUser',{ path: '/' });
+            logout({ returnTo: window.location.origin });
           }}
         >
           Logout <FaUserMinus />
         </button>
       ) : (
-        <button type='button' className='auth-btn' onClick={loginWithRedirect}>
+        <button type='button' className='auth-btn' onClick={redirect}>
           Login <FaUserPlus />
         </button>
       )}

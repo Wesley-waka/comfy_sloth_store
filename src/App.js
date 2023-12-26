@@ -11,6 +11,10 @@ import {
   Products,
   PrivateRoute,
   AuthWrapper,
+  ResetPassword,
+  SignUp,
+  Login,
+  ForgotPassword,
 } from './pages';
 function App() {
   return (
@@ -32,6 +36,10 @@ function App() {
             }
           />
           <Route path='*' element={<Error />} />
+          <Route path='register' element={<SignUp />} />
+          <Route path='login' element={<Login />} />
+          <Route path='password/forgot' element={<ForgotPassword />} />
+          <Route path='password/reset' element={<ResetPassword />} />
         </Routes>
         <Footer />
       </Router>
