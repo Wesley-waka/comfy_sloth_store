@@ -5,15 +5,15 @@ import { Link } from 'react-router-dom'
 const ListView = ({ products }) => {
   return <Wrapper>
     {products.map((product) => {
-      const { id, image, name, price, description } = product
+      const { _id, image, name, price, description } = product
       return (
-        <article key={id}>
-          <img src={image} alt={name} />
+        <article key={_id}>
+          <img src={image.filePath} alt={name} />
           <div>
             <h4>{name}</h4>
             <h4 className='price'>{formatPrice(price)}</h4>
             <p>{description.substring(0, 150)}</p>
-            <Link to={`/products/${id}`} className='btn'>
+            <Link to={`/products/${_id}`} className='btn'>
               Details
             </Link>
           </div>

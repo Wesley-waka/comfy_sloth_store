@@ -22,7 +22,7 @@ const SingleProductPage = () => {
     single_product: product,
     fetchSingleProduct,
   } = useProductsContext();
-
+  console.log(id)
   useEffect(() => {
     fetchSingleProduct(`${url}${id}`);
     // eslint-disable-next-line
@@ -49,9 +49,9 @@ const SingleProductPage = () => {
     stock,
     stars,
     reviews,
-    id: sku,
+    _id: sku,
     company,
-    images,
+    extra_images,
   } = product;
   return (
     <Wrapper>
@@ -61,7 +61,7 @@ const SingleProductPage = () => {
           back to products
         </Link>
         <div className='product-center'>
-          <ProductImages images={images} />
+          <ProductImages images={extra_images} />
           <section className='content'>
             <h2>{name}</h2>
             <Stars stars={stars} reviews={reviews} />

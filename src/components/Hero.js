@@ -12,7 +12,7 @@ const Hero = () => {
           comfort zone
         </h1>
         <p>
-        Welcome to our furniture oasis, where style meets substance. From sleek sofas to versatile dining sets, each item is a testament to the perfect blend of form and function. Dive into a world of elevated living with our handpicked selection, and let your home tell a story of refined elegance.
+        Welcome to our furniture oasis, where style meets substance. 
         </p>
         <Link to='/products' className='btn hero-btn'>
           shop now

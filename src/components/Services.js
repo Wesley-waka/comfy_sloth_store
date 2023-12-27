@@ -10,7 +10,7 @@ const Services = () => {
             custom furniture <br /> built only for you
           </h3>
           <p>
-          Immerse yourself in the art of relaxation with our exclusive range of handcrafted furniture. Our pieces are more than just objects; they are a celebration of artisanal craftsmanship, showcasing intricate details and a commitment to quality. Elevate your living experience with our luxurious sofas, cozy chairs, and bespoke tables.
+          Immerse yourself in the art of relaxation with our exclusive range of handcrafted furniture. 
           </p>
         </article>
         <div className='services-center'>
