@@ -4,10 +4,11 @@ import MetaData from "../../components/MetaData";
 import styles from "./ResetPassword.module.scss";
 import { useUsersContext } from "../../context/user_context";
 import { useFormik } from "formik";
+import { toast } from "react-toastify";
 
 const ResetPassword = ({ history, match }) => {
     const { clearErrors, resetPassword, error, success} = useUsersContext()
-
+    // const { resetToken } = useParams();
     const { values, handleSubmit, handleChange, resetForm } = useFormik({
         initialValues: {
             password: '',
@@ -24,15 +25,18 @@ const ResetPassword = ({ history, match }) => {
         }
     });
 
-    useEffect(() => {
-        if (error) {
-            clearErrors();
-        }
+    // useEffect(() => {
 
         if (success) {
-            history.push("/login");
+            window.location.href = '/login';
+            return toast.done("Logged in Successfully")
         }
-    }, [error, success]);
+
+        if (error) {
+            return toast.error(error);
+            // clearErrors();
+        }
+    // }, [error, success]);
 
 
     return (

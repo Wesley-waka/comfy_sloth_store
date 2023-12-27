@@ -25,6 +25,8 @@ import {
 import { axiosInstance } from '../config';
 import { useCookies } from 'react-cookie';
 import reducer from '../reducers/user_reducer'
+import axios from 'axios';
+
 const UserContext = React.createContext();
 
 const initialState= {
@@ -37,7 +39,7 @@ const initialState= {
 export const UserProvider = ({ children }) => {
   const [cookies, setCookie] = useCookies(['myCookie']);
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [data,setData] = useState()
+
   // Login
   const login = (email, password,remember) => async () => {
     try {
@@ -50,7 +52,7 @@ export const UserProvider = ({ children }) => {
       };
 
       const { data } = await axiosInstance.post(
-        "/api/v1/login",
+        "/api/users/login",
         { email, password },
         config
       );
@@ -81,7 +83,7 @@ export const UserProvider = ({ children }) => {
     try {
       dispatch({ type: LOAD_USER_REQUEST });
 
-      const { data } = await axiosInstance.get("/api/v1/me");
+      const { data } = await axiosInstance.get("/api/users/me");
 
       dispatch({
         type: LOAD_USER_SUCCESS,
@@ -97,36 +99,37 @@ export const UserProvider = ({ children }) => {
 
 
   // Register user
-  const register = (userData) => async () => {
+  const register = async(userData) => {
     try {
       dispatch({ type: REGISTER_USER_REQUEST });
-
+      console.log("done")
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       };
+      
       const { data } = await axiosInstance.post(
-        "/api/v1/register",
+        "/api/users/register",
         userData,
         config
-        );
+    );
 
-      dispatch({
+    dispatch({
         type: REGISTER_USER_SUCCESS,
         payload: data.user,
-      });
-    } catch (error) {
+    });
+  } catch (error) {
       dispatch({
-        type: REGISTER_USER_FAIL,
-        payload: error.response.data.message,
+          type: REGISTER_USER_FAIL,
+          payload: error.response.data.message,
       });
-    }
+  }
   };
 
 
   // Update password
-  const updatePassword = (passwords) => async () => {
+  const updatePassword = async(passwords)=> {
     try {
       dispatch({ type: UPDATE_PASSWORD_REQUEST });
 
@@ -137,7 +140,7 @@ export const UserProvider = ({ children }) => {
       };
 
       const { data } = await axiosInstance.put(
-        "/api/v1/password/update",
+        "/api/users/password/update",
         passwords,
         config
       );
@@ -158,8 +161,7 @@ export const UserProvider = ({ children }) => {
   // Logout user
   const logout = () => async () => {
     try {
-      await axiosInstance.get("/api/v1/logout");
-
+      await axiosInstance.get("/api/users/logout");
       dispatch({
         type: LOGOUT_SUCCESS,
       });
@@ -184,7 +186,7 @@ export const UserProvider = ({ children }) => {
       };
 
       const { data } = await axiosInstance.post(
-        "/api/v1/password/forgot",
+        "/api/users/password/forgot",
         email,
         config
       );
@@ -213,7 +215,7 @@ export const UserProvider = ({ children }) => {
         },
       };
       const { data } = await axiosInstance.put(
-        `/api/v1/password/reset/${token}`,
+        `/api/users/password/reset/${token}`,
         passwords,
         config
       );

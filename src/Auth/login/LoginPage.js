@@ -6,12 +6,12 @@ import MetaData from "../../components/MetaData";
 import styles from "./Login.module.scss";
 import LoginValidations from "../../validations/LoginValidations";
 import { useFormik } from "formik";
+import { toast } from "react-toastify";
 
-const Login = ({ history, location }) => {
+const Login = () => {
     const { clearErrors, login,isAuthenticated, error, loading} = useUsersContext()
 
-
-    const { values, handleSubmit, handleChange, resetForm } = useFormik({
+    const { values, handleSubmit, handleChange, resetForm,isValid } = useFormik({
         initialValues: {
             email: '',
             password: ''
@@ -35,16 +35,18 @@ const Login = ({ history, location }) => {
         setRemember(!remember); 
     };
 
-    useEffect(() => {
+    // useEffect(() => {
+
         if (isAuthenticated) {
-            Navigate('/');
+            window.location.href = '/';
+            return toast.done("Sign In Successfully")
         }
 
         if (error) {
-            alert.error(error);
-            clearErrors();
+            return toast.error(error);
+            // clearErrors();
         }
-    }, [isAuthenticated, error]);
+    // }, [isAuthenticated, error]);
 
     return (
         <Fragment>
@@ -58,6 +60,7 @@ const Login = ({ history, location }) => {
                             <input
                                 type="email"
                                 placeholder="Enter your email ..."
+                                name="email"
                                 value={values.email}
                                 onChange={handleChange}
                             />
@@ -66,13 +69,14 @@ const Login = ({ history, location }) => {
                             <label htmlFor="password_field">Password</label>
                             <input
                                 type="password"
+                                name="password"
                                 placeholder="Enter your password ..."
                                 value={values.password}
                                 onChange={handleChange}
                             />
                         </div>
                         <div className={styles.from_group}>
-                            <button type="submit">
+                            <button type="submit" disabled={!isValid} >
                                 {loading ? <ButtonLoader /> : "Login"}
                             </button>
                         </div>

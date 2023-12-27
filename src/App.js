@@ -16,12 +16,16 @@ import {
   Login,
   ForgotPassword,
 } from './pages';
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+
 function App() {
   return (
     <AuthWrapper>
       <Router>
         <Navbar />
         <Sidebar />
+        <ToastContainer />
         <Routes>
           <Route path='/' exact element={<Home />} />
           <Route path='about' element={<About />} />

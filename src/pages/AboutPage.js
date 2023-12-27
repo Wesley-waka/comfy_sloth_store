@@ -14,7 +14,7 @@ const AboutPage = () => {
           <div className='underline'></div>
         </div>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis et ipsum laborum maiores reiciendis in? Dolorum sed porro voluptatum consequatur iusto ducimus voluptas repellat alias facere quod qui asperiores perferendis unde praesentium nulla dolore odio, molestias quasi temporibus delectus corporis cumque modi quae. Minus mollitia vel similique aliquam, adipisci quam.
+        At Comfy Sloth Store, we believe in the power of furniture to transform spaces and lives. Our collection is a carefully curated symphony of design, comfort, and functionality. Whether you're searching for a statement piece to redefine your living room or seeking a cozy corner to unwind, our furniture speaks to your desires. Indulge in the seamless integration of style and practicality, and let your living spaces reflect the unique tapestry of your personality
         </p>
       </article>
     </Wrapper>

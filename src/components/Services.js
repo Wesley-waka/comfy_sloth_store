@@ -10,9 +10,7 @@ const Services = () => {
             custom furniture <br /> built only for you
           </h3>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-            dolorum debitis consectetur reprehenderit non aliquam voluptates
-            dolore aut vero consequuntur.
+          Immerse yourself in the art of relaxation with our exclusive range of handcrafted furniture. Our pieces are more than just objects; they are a celebration of artisanal craftsmanship, showcasing intricate details and a commitment to quality. Elevate your living experience with our luxurious sofas, cozy chairs, and bespoke tables.
           </p>
         </article>
         <div className='services-center'>

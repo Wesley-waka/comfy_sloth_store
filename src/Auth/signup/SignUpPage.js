@@ -1,15 +1,15 @@
 import React, { Fragment, useEffect} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ButtonLoader from "../../Auth/loader/ButtonLoader";
 import MetaData from "../../components/MetaData";
 import styles from "./Signup.module.scss";
 import { useUsersContext } from "../../context/user_context";
 import { useFormik } from 'formik';
 import RegisterValidations from "../../validations/RegisterValidations";
+import { toast } from "react-toastify";
 
 const Register = ({ history }) => {
-  const { clearErrors, register,isAuthenticated,error,loading} = useUsersContext()
-
+    const { clearErrors, register,isAuthenticated,error,loading} = useUsersContext()
     
     const { values, handleSubmit, handleChange, isValid, resetForm } = useFormik({
         initialValues: {
@@ -30,16 +30,18 @@ const Register = ({ history }) => {
         validationSchema: RegisterValidations
     });
 
-    useEffect(() => {
+
+    // useEffect(() => {
         if (isAuthenticated) {
-            history.push("/");
+            window.location.href = '/login';
+            return toast.done("Sign Up Successfully")
         }
 
         if (error) {
-            alert.error(error);
-            clearErrors();
+            return toast.error(error);
+            // clearErrors();
         }
-    }, [  isAuthenticated, error]);
+    // }, [  isAuthenticated, error]);
 
     return (
         <Fragment>
@@ -47,9 +49,7 @@ const Register = ({ history }) => {
             <div className={styles.login}>
                 <div className={styles.login_container}>
                     <h3 className="text-center text-white mb-3">Register</h3>
-                    <form
-                        onSubmit={handleSubmit}
-                    >
+                    <form onSubmit={handleSubmit}>
                         <div className={styles.from_group}>
                             <label htmlFor="anme_field">Name</label>
                             <input
@@ -81,7 +81,7 @@ const Register = ({ history }) => {
                             />
                         </div>
                         <div className={styles.from_group}>
-                            <button >
+                            <button type="submit" disabled={!isValid} >
                                 {loading ? <ButtonLoader /> : "Register"}
                             </button>
                         </div>

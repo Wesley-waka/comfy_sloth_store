@@ -7,7 +7,7 @@ import CartItem from './CartItem'
 import CartTotals from './CartTotals'
 const CartItems = () => {
   const { cart, clearCart } = useCartContext()
-
+  console.log(cart)
   return (
     <Wrapper className='section section-center'>
       <CartColumns />

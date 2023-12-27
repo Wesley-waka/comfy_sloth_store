@@ -3,21 +3,12 @@ import MetaData from "../../components/MetaData";
 import styles from "./ForgotPassword.module.scss";
 import { useUsersContext } from "../../context/user_context";
 import { useFormik } from "formik";
+import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
     const { clearErrors, forgotPassword,loading, error, message} = useUsersContext()
 
-    useEffect(() => {
-        if (error) {
-            alert.error(error);
-            clearErrors();
-        }
-        if (message) {
-            alert.success(message);
-        }
-    }, [error, message]);
-
-    const { values, handleSubmit, handleChange, resetForm } = useFormik({
+    const { values, handleSubmit, handleChange, resetForm,isValid } = useFormik({
         initialValues: {
             email: '',
         },
@@ -31,6 +22,14 @@ const ForgotPassword = () => {
         }
     });
 
+    if (error) {
+        return toast.error(error)
+    }
+
+    if (message) {
+        return toast.error(message);
+        // clearErrors();
+    }
 
     return (
         <Fragment>

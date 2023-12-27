@@ -12,10 +12,7 @@ const Hero = () => {
           comfort zone
         </h1>
         <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto, at
-          sed omnis corporis doloremque possimus velit! Repudiandae nisi odit,
-          aperiam odio ducimus, obcaecati libero et quia tempora excepturi quis
-          alias?
+        Welcome to our furniture oasis, where style meets substance. From sleek sofas to versatile dining sets, each item is a testament to the perfect blend of form and function. Dive into a world of elevated living with our handpicked selection, and let your home tell a story of refined elegance.
         </p>
         <Link to='/products' className='btn hero-btn'>
           shop now
