@@ -62,8 +62,9 @@ export const UserProvider = ({ children }) => {
         config
       );
 
+      console.log(data,status)
 
-      if(status.ok){
+      if(status === 200){
 
       const expirationDate = new Date();
       const rememberUser = expirationDate.setFullYear(expirationDate.getFullYear() + 10);
@@ -153,16 +154,19 @@ export const UserProvider = ({ children }) => {
         },
       };
 
-      const { data } = await axiosInstance.put(
+      const { data,status } = await axiosInstance.put(
         "/api/users/password/update",
         passwords,
         config
       );
 
-      dispatch({
-        type: UPDATE_PASSWORD_SUCCESS,
-        payload: data.success,
-      });
+      if(status === 200){
+        dispatch({
+          type: UPDATE_PASSWORD_SUCCESS,
+          payload: data.success,
+        });
+      }
+      
     } catch (error) {
       dispatch({
         type: UPDATE_PASSWORD_FAIL,
@@ -171,16 +175,15 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const clearCurrentUserCookie = () => {
-    removeCookie('currentUser');
-  };
+
 
   // Logout user
   const logout =  async () => {
     try {
       const {status} = await axiosInstance.delete("/api/users");
-      if(status.ok){
+      if(status === 200){
       removeCookie('currentUser')
+
       dispatch({
         type: LOGOUT_SUCCESS,
       });
@@ -211,7 +214,7 @@ export const UserProvider = ({ children }) => {
         config
       );
 
-      if(status.ok){
+      if(status === 200){
       dispatch({
         type: FORGOT_PASSWORD_SUCCESS,
         payload: data.message,
@@ -243,7 +246,7 @@ export const UserProvider = ({ children }) => {
         config
       );
 
-      if(status.ok){
+      if(status === 200){
 
       dispatch({
         type: NEW_PASSWORD_SUCCESS,

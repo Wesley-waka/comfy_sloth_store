@@ -6,6 +6,7 @@ import { useProductsContext } from '../context/products_context'
 import { useCartContext } from '../context/cart_context'
 import { useUsersContext } from '../context/user_context'
 import { useCookies } from 'react-cookie';
+import { toast } from 'react-toastify'
 
 const CartButton = () => {
   const { closeSidebar } = useProductsContext();
@@ -16,6 +17,11 @@ const CartButton = () => {
   const navigate = useNavigate();
   const redirect = ()=>{
     navigate('login')
+  }
+  const userOut = () =>{
+    logout();
+    toast.success('Logged out successfully')
+    setTimeout(() => window.location.href = '/', 3000);
   }
   console.log(myUser)
   return (
@@ -34,7 +40,7 @@ const CartButton = () => {
           onClick={() => {
             clearCart()
             removeCookie('currentUser',{ path: '/' });
-            logout({ returnTo: window.location.origin });
+            userOut();
           }}
         >
           Logout <FaUserMinus />
