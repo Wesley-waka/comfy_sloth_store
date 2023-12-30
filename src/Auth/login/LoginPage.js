@@ -45,8 +45,8 @@ const Login = () => {
         }
 
         if (error) {
-            return toast.error(error);
-            // clearErrors();
+            setTimeout(() => window.location.href = '/login', 3000);
+            toast.error(error);
         }
     // }, [isAuthenticated, error]);
 

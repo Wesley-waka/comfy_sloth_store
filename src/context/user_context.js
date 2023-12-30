@@ -46,30 +46,28 @@ export const UserProvider = ({ children }) => {
 
 
   // Login
-  const login =  async (email, password,remember) => {
+  const login =  async (formData) => {
     try {
-      dispatch({ type: LOGIN_REQUEST, payload:{email,password,remember}});
+      dispatch({ type: LOGIN_REQUEST});
 
       const config = {
         headers: {
           "Content-Type": "application/json",
         },
       };
-      console.log({email,password,remember})
+      console.log(formData)
       const { data,status } = await axios.post(
         "http://localhost:5000/api/users/login",
-        { email, password },
-        config
+        formData
       );
 
       console.log(data,status)
 
-      if(status === 200){
-
+      if(status === 201){
+      const {remember} = formData
       const expirationDate = new Date();
       const rememberUser = expirationDate.setFullYear(expirationDate.getFullYear() + 10);
       const forgetUser = expirationDate.setDate(expirationDate.getDate() + 1);
-
       if (remember) {
         setCookie('currentUser', data.user, { path: '/',expires: rememberUser});
       } else {
