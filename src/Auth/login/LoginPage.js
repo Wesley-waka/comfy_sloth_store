@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useUsersContext } from '../../context/user_context'
 import ButtonLoader from "../../Auth/loader/Loader";
 import MetaData from "../../components/MetaData";
@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 const Login = () => {
     const [remember,setRemember] = useState(false);
     const { clearErrors, login,isAuthenticated, error, loading} = useUsersContext()
-
+    const navigate = useNavigate()
     const { values, handleSubmit, handleChange, resetForm,isValid } = useFormik({
         initialValues: {
             email: '',
@@ -40,8 +40,8 @@ const Login = () => {
     // useEffect(() => {
 
         if (isAuthenticated) {
-            window.location.href = '/';
-            return toast.done("Sign In Successfully")
+            toast.success("Sign In Successfully")
+            setTimeout(() => window.location.href = '/', 3000);
         }
 
         if (error) {

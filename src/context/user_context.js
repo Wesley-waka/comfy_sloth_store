@@ -56,11 +56,14 @@ export const UserProvider = ({ children }) => {
         },
       };
       console.log({email,password,remember})
-      const { data } = await axios.post(
+      const { data,status } = await axios.post(
         "http://localhost:5000/api/users/login",
         { email, password },
         config
       );
+
+
+      if(status.ok){
 
       const expirationDate = new Date();
       const rememberUser = expirationDate.setFullYear(expirationDate.getFullYear() + 10);
@@ -76,6 +79,8 @@ export const UserProvider = ({ children }) => {
         type: LOGIN_SUCCESS,
         payload: data.user,
       });
+    }
+
     } catch (error) {
       dispatch({
         type: LOGIN_FAIL,
@@ -115,15 +120,19 @@ export const UserProvider = ({ children }) => {
       };
       
 
-    const { data } = await axios.post(
+    const { data,status } = await axios.post(
       "http://localhost:5000/api/users/signup",
       userData,
     );
+    console.log(status,data)
 
+    if(status === 201){
     dispatch({
         type: REGISTER_USER_SUCCESS,
         payload: data.user,
     });
+  }
+
   } catch (error) {
       dispatch({
           type: REGISTER_USER_FAIL,
@@ -169,11 +178,13 @@ export const UserProvider = ({ children }) => {
   // Logout user
   const logout =  async () => {
     try {
-      await axiosInstance.delete("/api/users");
+      const {status} = await axiosInstance.delete("/api/users");
+      if(status.ok){
       removeCookie('currentUser')
       dispatch({
         type: LOGOUT_SUCCESS,
       });
+      }
     } catch (error) {
       dispatch({
         type: LOGOUT_FAIL,
@@ -184,7 +195,7 @@ export const UserProvider = ({ children }) => {
 
 
   // Forgot password
-  const forgotPassword = (email) => async () => {
+  const forgotPassword = async (email) => {
     try {
       dispatch({ type: FORGOT_PASSWORD_REQUEST });
 
@@ -194,16 +205,19 @@ export const UserProvider = ({ children }) => {
         },
       };
 
-      const { data } = await axiosInstance.post(
-        "/api/users/password/forgot",
+      const { data,status } = await axiosInstance.post(
+        "/api/users/password/forgotpassword",
         email,
         config
       );
 
+      if(status.ok){
       dispatch({
         type: FORGOT_PASSWORD_SUCCESS,
         payload: data.message,
       });
+    }
+
     } catch (error) {
       dispatch({
         type: FORGOT_PASSWORD_FAIL,
@@ -223,16 +237,20 @@ export const UserProvider = ({ children }) => {
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axiosInstance.put(
+      const { data,status } = await axiosInstance.put(
         `/api/users/password/reset/${token}`,
         passwords,
         config
       );
 
+      if(status.ok){
+
       dispatch({
         type: NEW_PASSWORD_SUCCESS,
         payload: data.success,
       });
+    }
+
     } catch (error) {
       dispatch({
         type: NEW_PASSWORD_FAIL,

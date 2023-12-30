@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 
 const Register = ({ history }) => {
     const { clearErrors, register,isAuthenticated,error,loading} = useUsersContext()
-    
+    const navigate = useNavigate
     const { values, handleSubmit, handleChange, isValid, resetForm } = useFormik({
         initialValues: {
             name:"",
@@ -24,7 +24,6 @@ const Register = ({ history }) => {
                 email,
                 password
             }
-            console.log(formData)
             register(formData);
             resetForm();
         },
@@ -35,7 +34,8 @@ const Register = ({ history }) => {
     // useEffect(() => {
         if (isAuthenticated) {
             // window.location.href = '/login';
-            return toast.done("Sign Up Successfully")
+            toast.success("Sign Up Successfully");
+            setTimeout(() => window.location.href = '/login', 3000);
         }
 
         if (error) {

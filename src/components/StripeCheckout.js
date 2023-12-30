@@ -101,19 +101,22 @@ const CheckoutForm = () => {
   };
   return (
     <div>
-      {succeeded ? (
+    {succeeded ? (
+      <div>
         <article>
           <h4>Thank you</h4>
           <h4>Your payment was successful!</h4>
-          <h4>Redirecting to home page shortly</h4>
+          <h4>Redirecting to the home page shortly</h4>
         </article>
-      ) : (
-        <article>
-          <h4>Hello, {myUser && myUser.name}</h4>
-          <p>Your total is {formatPrice(total_amount)}</p>
-          <p>Test Card Number: 4242 4242 4242 4242</p>
-        </article>
-      )}
+        {setTimeout(() => (window.location.href = '/'), 3000)}
+      </div>
+    ) : (
+      <article>
+        <h4>Hello, {myUser && myUser.name}</h4>
+        <p>Your total is {formatPrice(total_amount)}</p>
+        <p>Test Card Number: 4242 4242 4242 4242</p>
+      </article>
+    )}
       <form id='payment-form' onSubmit={handleSubmit}>
         <CardElement
           id='card-element'

@@ -28,8 +28,9 @@ const ResetPassword = ({ history, match }) => {
     // useEffect(() => {
 
         if (success) {
-            window.location.href = '/login';
-            return toast.done("Logged in Successfully")
+            toast.success("Password Reset Successfully")
+            setTimeout(() => window.location.href = '/login', 3000);
+
         }
 
         if (error) {

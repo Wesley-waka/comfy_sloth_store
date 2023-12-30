@@ -27,8 +27,8 @@ const ForgotPassword = () => {
     }
 
     if (message) {
-        return toast.error(message);
-        // clearErrors();
+        toast.success(message);
+        setTimeout(() => window.location.href = '/password/forgot', 3000);
     }
 
     return (
@@ -43,7 +43,7 @@ const ForgotPassword = () => {
                                 <label htmlFor="email_field">Enter Email</label>
                                 <input
                                     type="email"
-                                    id="email_field"
+                                    name='email'
                                     className="form-control"
                                     value={values.email}
                                     onChange={handleChange}
