@@ -60,8 +60,6 @@ export const UserProvider = ({ children }) => {
         config
       );
 
-
-
       const expirationDate = new Date();
       const rememberUser = expirationDate.setFullYear(expirationDate.getFullYear() + 10);
       const forgetUser = expirationDate.setDate(expirationDate.getDate() + 1);

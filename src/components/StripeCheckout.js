@@ -14,7 +14,7 @@ import { formatPrice } from '../utils/helpers';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
-const promise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+const promise = loadStripe("pk_test_51NTaTqBRG6u60alZe5z4NiOywj3405BkZP6xTUc2OSBwYwJBek2D3fqJ0YEZukuC2VirHVnjUkjeu2BAnnnPq0tJ002kNkSKke");
 
 const CheckoutForm = () => {
   const { cart, total_amount, shipping_fee, clearCart } = useCartContext();
@@ -28,10 +28,10 @@ const CheckoutForm = () => {
   const elements = useElements();
   const [cookies] = useCookies(['currentUser']);
   const myUser = cookies.currentUser
-  
+  console.log(clientSecret);
   const createPaymentIntent = async () => {
     try {
-      fetch(`${process.env.REACT_APP_API_BASE_URL}/create-payment-intent`, {
+      fetch(`http://localhost:5000/api/payment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ price: total_amount }),
@@ -48,6 +48,8 @@ const CheckoutForm = () => {
       // console.log(error.response)
     }
   };
+
+
   useEffect(() => {
     createPaymentIntent();
     // eslint-disable-next-line
