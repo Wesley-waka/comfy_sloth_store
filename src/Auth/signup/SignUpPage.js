@@ -24,6 +24,7 @@ const Register = ({ history }) => {
                 email,
                 password
             }
+            console.log(formData)
             register(formData);
             resetForm();
         },
@@ -33,7 +34,7 @@ const Register = ({ history }) => {
 
     // useEffect(() => {
         if (isAuthenticated) {
-            window.location.href = '/login';
+            // window.location.href = '/login';
             return toast.done("Sign Up Successfully")
         }
 

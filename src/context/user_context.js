@@ -1,4 +1,5 @@
 import React, { useContext, useReducer, useState } from 'react';
+import { products_url as url } from '../utils/constants'
 import {
   LOGIN_REQUEST,
   LOGIN_FAIL,
@@ -40,22 +41,27 @@ export const UserProvider = ({ children }) => {
   const [cookies, setCookie] = useCookies(['myCookie']);
   const [state, dispatch] = useReducer(reducer, initialState);
 
+
+
   // Login
-  const login = (email, password,remember) => async () => {
+  const login =  async (email, password,remember) => {
     try {
-      dispatch({ type: LOGIN_REQUEST });
+      dispatch({ type: LOGIN_REQUEST, payload:{email,password,remember}});
 
       const config = {
         headers: {
           "Content-Type": "application/json",
         },
       };
-
-      const { data } = await axiosInstance.post(
-        "/api/users/login",
+      console.log({email,password,remember})
+      const { data } = await axios.post(
+        "http://localhost:5000/api/users/login",
         { email, password },
         config
       );
+
+
+
       const expirationDate = new Date();
       const rememberUser = expirationDate.setFullYear(expirationDate.getFullYear() + 10);
       const forgetUser = expirationDate.setDate(expirationDate.getDate() + 1);
@@ -109,12 +115,15 @@ export const UserProvider = ({ children }) => {
         },
       };
       
-      const { data } = await axiosInstance.post(
-        "/api/users/register",
-        userData,
-        config
+      console.log(userData)
+      console.log('start')
+
+    const { data } = await axios.post(
+      "http://localhost:5000/api/users/signup",
+      userData,
     );
 
+    console.log(data)
     dispatch({
         type: REGISTER_USER_SUCCESS,
         payload: data.user,

@@ -13,6 +13,7 @@ import {
 } from '../components';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+
 const SingleProductPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const SingleProductPage = () => {
     single_product: product,
     fetchSingleProduct,
   } = useProductsContext();
+
   console.log(id)
   useEffect(() => {
     fetchSingleProduct(`${url}${id}`);
@@ -41,6 +43,8 @@ const SingleProductPage = () => {
   if (error) {
     return <Error />;
   }
+
+
 
   const {
     name,

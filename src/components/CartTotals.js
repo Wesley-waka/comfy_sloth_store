@@ -32,7 +32,7 @@ const CartTotals = () => {
           myUser ? <Link to='/checkout' className='btn'>
             proceed to checkout
           </Link>
-            : <button className='btn' onClick={login}>login</button>
+            : <Link to='/login' className='btn'>login</Link>
         }
       </div>
     </Wrapper >

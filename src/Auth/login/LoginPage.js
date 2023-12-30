@@ -9,6 +9,7 @@ import { useFormik } from "formik";
 import { toast } from "react-toastify";
 
 const Login = () => {
+    const [remember,setRemember] = useState(false);
     const { clearErrors, login,isAuthenticated, error, loading} = useUsersContext()
 
     const { values, handleSubmit, handleChange, resetForm,isValid } = useFormik({
@@ -20,15 +21,16 @@ const Login = () => {
             const {email,password} = values
             const formData = {
                 email,
-                password
+                password,
+                remember
             }
+            console.log(formData)
             login(formData);
             resetForm();
         },
         validationSchema: LoginValidations
     });
 
-    const [remember,setRemember] = useState(false);
 
 
     const handleCheckboxChange = () => {
