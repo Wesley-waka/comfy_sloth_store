@@ -28,6 +28,8 @@ import { useCookies } from 'react-cookie';
 import reducer from '../reducers/user_reducer'
 import axios from 'axios';
 
+
+
 const UserContext = React.createContext();
 
 const initialState= {
@@ -38,7 +40,7 @@ const initialState= {
   success: false
 }
 export const UserProvider = ({ children }) => {
-  const [cookies, setCookie] = useCookies(['myCookie']);
+  const [cookies, setCookie,removeCookie] = useCookies(['myCookie']);
   const [state, dispatch] = useReducer(reducer, initialState);
 
 
@@ -83,7 +85,7 @@ export const UserProvider = ({ children }) => {
   };
 
   // Load user
-  const loadUser = () => async () => {
+  const loadUser = async () => {
     try {
       dispatch({ type: LOAD_USER_REQUEST });
 
@@ -106,22 +108,18 @@ export const UserProvider = ({ children }) => {
   const register = async(userData) => {
     try {
       dispatch({ type: REGISTER_USER_REQUEST });
-      console.log("done")
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       };
       
-      console.log(userData)
-      console.log('start')
 
     const { data } = await axios.post(
       "http://localhost:5000/api/users/signup",
       userData,
     );
 
-    console.log(data)
     dispatch({
         type: REGISTER_USER_SUCCESS,
         payload: data.user,
@@ -164,11 +162,15 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const clearCurrentUserCookie = () => {
+    removeCookie('currentUser');
+  };
 
   // Logout user
-  const logout = () => async () => {
+  const logout =  async () => {
     try {
-      await axiosInstance.get("/api/users/logout");
+      await axiosInstance.delete("/api/users");
+      removeCookie('currentUser')
       dispatch({
         type: LOGOUT_SUCCESS,
       });
