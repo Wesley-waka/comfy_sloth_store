@@ -57,7 +57,7 @@ export const UserProvider = ({ children }) => {
       };
       console.log(formData)
       const { data,status } = await axios.post(
-        "http://localhost:5000/api/users/login",
+        "https://comfy-sloth-backend.fly.dev/api/users/login",
         formData
       );
 
@@ -120,7 +120,7 @@ export const UserProvider = ({ children }) => {
       
 
     const { data,status } = await axios.post(
-      "http://localhost:5000/api/users/signup",
+      "https://comfy-sloth-backend.fly.dev/api/users/signup",
       userData,
     );
     console.log(status,data)
@@ -178,7 +178,7 @@ export const UserProvider = ({ children }) => {
   // Logout user
   const logout =  async () => {
     try {
-      const {status} = await axiosInstance.delete("/api/users");
+      const {status} = await axiosInstance.delete("https://comfy-sloth-backend.fly.dev/api/users");
       if(status === 200){
       removeCookie('currentUser')
 
@@ -207,7 +207,7 @@ export const UserProvider = ({ children }) => {
       };
 
       const { data,status } = await axiosInstance.post(
-        "/api/users/password/forgotpassword",
+        "https://comfy-sloth-backend.fly.dev/api/users/password/forgotpassword",
         email,
         config
       );
@@ -239,7 +239,7 @@ export const UserProvider = ({ children }) => {
         },
       };
       const { data,status } = await axiosInstance.put(
-        `/api/users/password/reset/${token}`,
+        `https://comfy-sloth-backend.fly.dev/api/users/password/reset/${token}`,
         passwords,
         config
       );
