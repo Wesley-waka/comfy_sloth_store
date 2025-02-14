@@ -42,6 +42,6 @@ export const services = [
   },
 ]
 
-export const products_url = 'https://comfy-sloth-backend.fly.dev/api/furniture'
+export const products_url = 'https://comfy-sloth-backend.vercel.app/api/furniture/'
 
-export const single_product_url = `https://comfy-sloth-backend.fly.dev/api/furniture/`
+export const single_product_url = `https://comfy-sloth-backend.vercel.app/api/furniture/`
